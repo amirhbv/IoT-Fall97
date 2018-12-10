@@ -1,0 +1,51 @@
+<!doctype html>
+
+<head>
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <div class="center">
+        <h1>Sign Up</h1>
+        <form>
+            <input type="text" name="username" placeholder="Username" required="required" id="signupUsername" />
+            <input type="password" name="password" placeholder="Password" required="required" id="signupPassword" />
+            <input type="password" name="confirm" placeholder="Confirm Password" required="required" id="signupConfirmPassword" />
+        </form>
+        <input type="submit" class="btn btn-primary btn-block btn-large" id="submitBtn" onclick="signup()" onsubmit="prevent(e)" />
+
+        <script>
+            function prevent(e) {
+                console.log('ss');
+                e.preventDefault();
+                debugger;
+            }
+
+
+
+
+            function signup() {
+                var username = signupUsername.value;
+                var password = signupPassword.value;
+                var confirm = signupConfirmPassword.value;
+                if (password != confirm) {
+                    alert("confirm your password!");
+                    return;
+                }
+                var users = localStorage.getItem("users") || {};
+                var user = {
+                    username: username,
+                    password: password,
+                };
+                if (users[username]) {
+                    alert("username is already taken!");
+                    return;
+                }
+                users[username] = user;
+                console.log(users);
+                localStorage.setItem("users", JSON.stringify(users));
+            }
+        </script>
+    </div>
+</body>
