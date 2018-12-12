@@ -4,6 +4,7 @@
 
 $.get("https://iot-fall97.herokuapp.com/api/nodemcu", function(data, status){
 	alert("Data: " + data + "\nStatus: " + status);
+	
 });
 
 $(function() {
