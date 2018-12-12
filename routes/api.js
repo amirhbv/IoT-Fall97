@@ -2,6 +2,23 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
+var Nodemcu = require('../models/nodemcu_data');
+
+router.post('/nodemcu', async function (req, res) {
+    let d = req.body.data
+    let newdata = {
+        dataName: "temperature",
+        data: d,
+        dateTime: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0].replace('T',' ')
+    };
+    
+    let newD = await Nodemcu.create(newdata);
+    console.log(newD);
+
+    return res.status(200).send();
+
+
+});
 
 router.post('/login', async function (req, res) {
     let username = req.body.username;

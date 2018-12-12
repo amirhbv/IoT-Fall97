@@ -2,6 +2,9 @@
 //Sathish kumar
 //Added theming
 
+var Nodemcu = require('../../models/nodemcu_data');
+console.log(Nodemcu.find({ dataName: "temperature" }));
+
 $(function() {
 
 	var mapSeries = {
@@ -243,6 +246,8 @@ $(function() {
 
 		$(".rad-chart").empty();
 		$(".d3-*").empty();
+
+
 
 		Morris.Line({
 			lineColors: ['#E67A77', '#D9DD81', '#79D1CF', '#95D7BB'],
