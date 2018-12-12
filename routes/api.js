@@ -9,7 +9,6 @@ var Nodemcu = require('../models/nodemcu_data');
 router.get('/nodemcu', async function (req, res) {
     Nodemcu.find({ dataName: "temperature" }).exec(function (err, result) {
         if (err) throw err;
-        console.log(result);
         return res.status(200).send(result);
     });
 

@@ -2,13 +2,11 @@
 //Sathish kumar
 //Added theming
 
-$.get("https://iot-fall97.herokuapp.com/api/nodemcu", function(data, status){
-	alert("Data: " + data + "\nStatus: " + status);
-	
-});
 
-$(function() {
 
+
+
+$(function () {
 	var mapSeries = {
 		"AF": 16.63,
 		"AL": 11.58,
@@ -47,7 +45,7 @@ $(function() {
 
 	var world;
 
-	$(window).on("scroll", function(e) {
+	$(window).on("scroll", function (e) {
 		if ($(window).scrollTop() > 50) {
 			$("body").addClass("sticky");
 		} else {
@@ -55,15 +53,15 @@ $(function() {
 		}
 	});
 
-	$(document).on("click", function(e) {
+	$(document).on("click", function (e) {
 		e.preventDefault();
 		var $item = $(".rad-dropmenu-item");
 		if ($item.hasClass("active")) {
 			$item.removeClass("active");
 		}
 	});
-	
-	$('.rad-sidebar a').on("click", function(e) {
+
+	$('.rad-sidebar a').on("click", function (e) {
 		e.stopPropagation();
 	});
 
@@ -76,62 +74,62 @@ $(function() {
 		height: '450px',
 		color: '#c6c6c6'
 	});
-	
+
 	$('.rad-activity-body').slimScroll({
 		height: '250px',
 		color: '#c6c6c6'
 	});
 
-	$(".rad-toggle-btn").on('click', function() {
+	$(".rad-toggle-btn").on('click', function () {
 		$(".rad-logo-container").toggleClass("rad-nav-min");
 		$(".rad-sidebar").toggleClass("rad-nav-min");
 		$(".rad-body-wrapper").toggleClass("rad-nav-min");
-		setTimeout(function() {
+		setTimeout(function () {
 			initializeCharts();
 		}, 200);
 	});
 
-	$("li.rad-dropdown > a.rad-menu-item").on('click', function(e) {
+	$("li.rad-dropdown > a.rad-menu-item").on('click', function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 		$(".rad-dropmenu-item").removeClass("active");
 		$(this).next(".rad-dropmenu-item").toggleClass("active");
 	});
 
-	$(".fa-chevron-down").on("click", function() {
+	$(".fa-chevron-down").on("click", function () {
 		var $ele = $(this).parents('.panel-heading');
 		$ele.siblings('.panel-footer').toggleClass("rad-collapse");
-		$ele.siblings('.panel-body').toggleClass("rad-collapse", function() {
-			setTimeout(function() {
+		$ele.siblings('.panel-body').toggleClass("rad-collapse", function () {
+			setTimeout(function () {
 				initializeCharts();
 			}, 200);
 		});
 	});
 
-	$(".fa-close").on("click", function() {
+	$(".fa-close").on("click", function () {
 		var $ele = $(this).parents('.panel');
 		$ele.addClass('panel-close');
-		setTimeout(function() {
+		setTimeout(function () {
 			$ele.parent().remove();
 		}, 210);
 	});
 
-	$(".fa-rotate-right").on("click", function() {
+	$(".fa-rotate-right").on("click", function () {
 		var $ele = $(this).parents('.panel-heading').siblings('.panel-body');
 		$ele.append('<div class="overlay"><div class="overlay-content"><i class="fa fa-refresh fa-2x fa-spin"></i></div></div>');
-		setTimeout(function() {
+		setTimeout(function () {
 			$ele.find('.overlay').remove();
 		}, 2000);
 	});
 
-	$("#rad-chat-send").on("click", function() {
+	$("#rad-chat-send").on("click", function () {
 		var value = $("#rad-chat-txt").val();
 		var $ele = $(".rad-chat-body");
 		var img = "https://lh4.googleusercontent.com/-GXmmnYTuWkg/AAAAAAAAAAI/AAAAAAAAAAA/oK6DEDS7grM/w56-h56/photo.jpg";
 		if (value) {
 			$("#rad-chat-txt").val('');
 			$ele.append(getTempl(img, value, 'left'));
-			setTimeout(function() {
+			setTimeout(function () {
 				img = "http://www.gravatar.com/avatar/9099c2946891970eb4739e6455400913.png";
 				$ele.append(getTempl(img, "Cool!!!", 'right'));
 				$ele.slimScroll({
@@ -147,20 +145,20 @@ $(function() {
 
 	});
 
-	$('.rad-chk-pin input[type=checkbox]').change(function(e) {
+	$('.rad-chk-pin input[type=checkbox]').change(function (e) {
 		$('body').toggleClass("flat-theme");
 		$("#rad-color-opts").toggleClass("hide");
 	});
-	
+
 	var colorMap = {
-		crimson: "crimson", 
-		teal: "#1fb5ad", 
-		orange: "#ff503f", 
-		purple: "rebeccapurple", 
+		crimson: "crimson",
+		teal: "#1fb5ad",
+		orange: "#ff503f",
+		purple: "rebeccapurple",
 		twitter: "#55acee"
 	};
 
-	$('.rad-color-swatch input[type=radio]').change(function(e) {
+	$('.rad-color-swatch input[type=radio]').change(function (e) {
 		if ($('.rad-chk-pin input[type=checkbox]').is(":checked")) {
 			$('body').removeClass().addClass("flat-theme").addClass(this.value);
 			$('.rad-color-swatch label').removeClass("rad-option-selected");
@@ -170,29 +168,31 @@ $(function() {
 			settings.regionStyle.initial.fill = colorMap[this.value];
 			settings.series.regions[0].scale = ['#A8ECFF', '#FA71D4'];
 			// world = new jvm.Map(settings);	
-			
+
 		} else {
 			return false;
 		}
 	});
-	
-	
-	$(".rad-notification-item").on("click", function(e) {
+
+
+	$(".rad-notification-item").on("click", function (e) {
 		e.stopPropagation();
 	});
 
-	$(window).resize(function() {
-		setTimeout(function() {
+	$(window).resize(function () {
+		setTimeout(function () {
 			initializeCharts();
 		}, 200);
 	});
 
+
+
 	var colors = [
-			'#E94B3B',
-			'#39C7AA',
-			'#1C7EBB',
-			'#F98E33'
-		],
+		'#E94B3B',
+		'#39C7AA',
+		'#1C7EBB',
+		'#F98E33'
+	],
 
 		data = [{
 			y: 'Jan',
@@ -242,50 +242,67 @@ $(function() {
 			y: 'Dec',
 			a: 95,
 			b: 65
-		}, ];
+		},];
 
+	setInterval(function () { initializeCharts(); }, 4000);
 	function initializeCharts() {
-
 		$(".rad-chart").empty();
 		$(".d3-*").empty();
+		console.log(data)
 
+		$.get("../../api/nodemcu", function (data, status) {
+			//alert("Data: " + data + "\nStatus: " + status);
+			Morris.Line({
+				lineColors: ['#E67A77'],
+				element: 'lineChart',
+				data:
+					data
+				,
 
-
-		Morris.Line({
-			lineColors: ['#E67A77', '#D9DD81', '#79D1CF', '#95D7BB'],
-			element: 'lineChart',
-			data: [{
-				year: '2008',
-				value: 45,
-				value2: 15,
-				value3: 95
-			}, {
-				year: '2009',
-				value: 10,
-				value2: 40,
-				value3: 80
-			}, {
-				year: '2010',
-				value: 45,
-				value2: 95,
-				value3: 5
-			}, {
-				year: '2011',
-				value: 20,
-				value2: 60,
-				value3: 40
-			}, {
-				year: '2012',
-				value: 45,
-				value2: 0,
-				value3: 90
-			}],
-			xkey: 'year',
-			ykeys: ['value', 'value2', 'value3'],
-			labels: ['Value', 'value2', 'value3'],
-			pointSize: 0,
-			hideHover: 'auto'
+				xkey: 'dateTime',
+				ykeys: ['data'],
+				labels: ['data'],
+				pointSize: 0,
+				hideHover: 'auto'
+			});
 		});
+
+
+		// Morris.Line({
+		// 	lineColors: ['#E67A77', '#D9DD81', '#79D1CF', '#95D7BB'],
+		// 	element: 'lineChart',
+		// 	data: [{
+		// 		year: '2008',
+		// 		value: 45,
+		// 		value2: 15,
+		// 		value3: 95
+		// 	}, {
+		// 		year: '2009',
+		// 		value: 10,
+		// 		value2: 40,
+		// 		value3: 80
+		// 	}, {
+		// 		year: '2010',
+		// 		value: 45,
+		// 		value2: 95,
+		// 		value3: 5
+		// 	}, {
+		// 		year: '2011',
+		// 		value: 20,
+		// 		value2: 60,
+		// 		value3: 40
+		// 	}, {
+		// 		year: '2012',
+		// 		value: 45,
+		// 		value2: 0,
+		// 		value3: 90
+		// 	}],
+		// 	xkey: 'year',
+		// 	ykeys: ['value', 'value2', 'value3'],
+		// 	labels: ['Value', 'value2', 'value3'],
+		// 	pointSize: 0,
+		// 	hideHover: 'auto'
+		// });
 
 		Morris.Donut({
 			element: 'donutChart',
@@ -451,16 +468,16 @@ $(function() {
 	}
 
 	initializeCharts();
-	
+
 	// world = new jvm.Map(settings);
-	
+
 	$('#world-map').vectorMap(settings);
 
 });
 
 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-	],
+	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+],
 	data = [{
 		"label": "Technology",
 		"value": 20
@@ -480,13 +497,13 @@ var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 
 function getDonutData(group, column) {
 	function sum(numbers) {
-		return _.reduce(numbers, function(result, current) {
+		return _.reduce(numbers, function (result, current) {
 			return result + 1;
 		}, 0);
 	}
 	var result = _.chain(getChartData())
 		.groupBy(group)
-		.map(function(value, key) {
+		.map(function (value, key) {
 			return {
 				label: key,
 				value: sum(_.pluck(value, column))
