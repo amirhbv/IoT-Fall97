@@ -1,16 +1,38 @@
 <template>
-    <div id="vue-app" class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">
-                افزودن تیکت
-            </h3>
-        </div>
-        <div class="box-body">
-            <ticket-form with-description
-                description='فرستنده عزیز لطفاً درخواست‌های پشتیبانی خود را از طریق فرم زیر برای ما ارسال کنید. کارشناسان نجوا در اسرع وقت به درخواست‌ شما پاسخ می‌دهند. همچنین در صورت نیاز می‌توانید با شماره تلفن <span class="ltr fanum" style="display:inline-block;"> 021 - 44389021 </span>  تماس حاصل فرمایید.'
-                >
-            </ticket-form>
-        </div>
+    <div id="vue-app">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>IoT</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>IoT</b></span>
+            </a>
+
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                <!-- User Account Menu -->
+                <li class="dropdown user user-menu">
+                    <!-- Menu Toggle Button -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span >{{ username }}</span>
+                    </a>
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-cogs"></i></a>
+                </li>
+                </ul>
+            </div>
+            </nav>
+        </header>
     </div>
 </template>
 
@@ -20,6 +42,7 @@
         components: {
         },
         data: () => ({
+            username: 'Amir'
         }),
         computed: {
         },
@@ -36,7 +59,6 @@
         created() {
         },
         mounted() {
-            console.log("hiiiiii");
         },
     }
 </script>
