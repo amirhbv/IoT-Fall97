@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "debug": "set DEBUG=iot:* && nodemon ./bin/www",
-    "build": "webpack --config webpack.config.js -p"
+    "build": "webpack --config webpack.config.js -p",
+    "watch": "webpack --config webpack.config.js --watch --mode development"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
