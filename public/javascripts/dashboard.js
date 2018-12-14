@@ -1,3 +1,5 @@
+import '../stylesheets/dashboard.scss';
+
 import Vue from 'vue';
 import Dashboard from './vue/Dashboard.vue';
 
