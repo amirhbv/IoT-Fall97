@@ -3,17 +3,13 @@ var router = express.Router();
 
 var User = require('../models/user');
 var Nodemcu = require('../models/nodemcu_data');
-
-
+var config = require('../utils/config');
 
 router.get('/nodemcu', async function (req, res) {
     Nodemcu.find({ dataName: "temperature" }).exec(function (err, result) {
         if (err) throw err;
         return res.status(200).send(result);
     });
-
-    
-
 });
 
 router.post('/nodemcu', async function (req, res) {
@@ -28,34 +24,30 @@ router.post('/nodemcu', async function (req, res) {
     console.log(newD);
 
     return res.status(200).send();
-
-
 });
 
 router.post('/login', async function (req, res) {
     let username = req.body.username;
     let user = await User.findOne({ username: username });
-    if (user) {
-        let password = req.body.password;
-        if (user.password == password) {
-            return res.status(200).send();
-        }
-        else {
-            return res.status(401).send();
-        }
+    if (user && user.comparePassword(req.body.password)) {
+        return res.json({
+            token: jwt.sign({ username: user.username },
+                                config.secret,
+                                { expiresIn: config.accessTokenExpireTime })
+        });
     }
     else {
-        return res.status(401).send();
+        return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
     }
 });
 
 router.post('/signup', async function (req, res) {
     let username = req.body.username;
-    let password = req.body.password;
+    let hash_password = bcrypt.hashSync(req.body.password, config.saltRounds);
     if (username && password) {
         let newUser = {
             username: username,
-            password: password
+            hash_password: hash_password
         };
         try {
             let user = await User.create(newUser);
