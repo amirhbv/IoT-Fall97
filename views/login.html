@@ -1,37 +1,42 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>Login!</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Handlee|Roboto|Shadows+Into+Light" rel="stylesheet">
+    <link rel="stylesheet" href="/static/stylesheets/login.css">
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
-    <div class="center">
-        <h1>Login</h1>
-        <form action="/api/login" method="post">
-            <input type="text" name="username" placeholder="Username" required="required" id="loginUsername" />
-            <input type="password" name="password" placeholder="Password" required="required" id="loginPassword" />
-            <input type="submit" class="btn btn-primary btn-block btn-large" id="submitBtn" />
+    <div id="login_box">
+        <div id="login_instructions" >
+            <img src="/static/images/bg.jpeg" style="width:150px" style="height:150px">
+            <p><b>FCH</b></p>
+        </div>
+        <form id="login_form">
+            <div id="first_line">
+                <i class="far fa-user"></i>
+                <input type="text" placeholder="Email or Username" />
+            </div>
+            <div>
+                <i class="fas fa-key"></i>
+                <input type="password" placeholder="Password" />
+            </div>
+            <input type="submit" value="LOGIN" />
         </form>
-        <script src="index.js"></script>
-    </div>
-    <script>
-        function login() {
-                var username = loginUsername.value;
-                var password = loginPassword.value;
-                var users = localStorage.getItem("users");
-                var user = users[username];
-                if (user) {
-                    if (user.password == password) {
-                        window.open('index.html');
-                    }
-                    else {
-                        alert("Wrong password!");
-                    }
-                }
-                else {
-                    alert("Invalid username!");
-                }
-            }
-
-</script>
 </body>
+</html>
+
+<script type="text/javascript">
+	function login() {
+		// body...
+	}
+	function signup() {
+		var Uname = signu.value;
+		var pass = signp.value;
+		var ok_to_go = signconfirm.value;
+
+	}
+</script>
