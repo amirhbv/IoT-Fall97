@@ -167,7 +167,7 @@ $(function () {
 			// world.remove();
 			settings.regionStyle.initial.fill = colorMap[this.value];
 			settings.series.regions[0].scale = ['#A8ECFF', '#FA71D4'];
-			// world = new jvm.Map(settings);	
+			// world = new jvm.Map(settings);
 
 		} else {
 			return false;
@@ -255,10 +255,7 @@ $(function () {
 			Morris.Line({
 				lineColors: ['#E67A77'],
 				element: 'lineChart',
-				data:
-					data
-				,
-
+				data:data,
 				xkey: 'dateTime',
 				ykeys: ['data'],
 				labels: ['data'],

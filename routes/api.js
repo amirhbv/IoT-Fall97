@@ -30,10 +30,11 @@ router.post('/login', async function (req, res) {
     let username = req.body.username;
     let user = await User.findOne({ username: username });
     if (user && user.comparePassword(req.body.password)) {
+        let payload = { username: user.username };
         return res.json({
-            token: jwt.sign({ username: user.username },
-                                config.secret,
-                                { expiresIn: config.accessTokenExpireTime })
+            token: jwt.sign(payload,
+                            config.secret,
+                            { expiresIn: config.accessTokenExpireTime })
         });
     }
     else {
@@ -46,8 +47,8 @@ router.post('/signup', async function (req, res) {
     let hash_password = bcrypt.hashSync(req.body.password, config.saltRounds);
     if (username && password) {
         let newUser = {
-            username: username,
-            hash_password: hash_password
+            username,
+            hash_password
         };
         try {
             let user = await User.create(newUser);
