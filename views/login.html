@@ -2,11 +2,14 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Handlee|Roboto|Shadows+Into+Light" rel="stylesheet">
     <link rel="stylesheet" href="/static/stylesheets/login.css">
+    <script src="/static/lib/bootstrap/js/jquery.min.js"></script>
+
 </head>
 <body>
     <div id="login_box">
@@ -14,10 +17,10 @@
             <img src="/static/images/bg.jpeg" style="width:150px" style="height:150px">
             <p>LOGIN</p>
         </div>
-        <form id="login_form" onsubmit="this.preventDefault();login()">
-            <input type="text" placeholder="Email" id="loginEmail" required/>
-            <input type="password" placeholder="Password" id="loginPass" required/>
-            <input type="submit" value="LOGIN" />
+        <form id="login_form" onsubmit="return false;">
+            <input type="text" placeholder="Email" id="login_email" required/>
+            <input type="password" placeholder="Password" id="login_pass" required/>
+            <input type="submit" value="LOGIN" onclick="login();"/>
         </form>
         <div id="no_account">
             <p>Don't have an Account?</p>
@@ -25,8 +28,26 @@
     </div>
     <script>
         function login() {
-            console.log(loginEmail.value);
-            console.log(loginPass.value);
+            var username = login_email.value;
+            var password = login_pass.value;
+            if(!username || !password) {
+                // alert
+                return false;
+            }
+            $.ajax({
+                method: 'POST',
+                url: '/api/login',
+                data: {
+                    username,
+                    password
+                }
+            })
+            .done(function (Data) {
+                console.log(Data);
+            })
+            .fail(function (err) {
+                console.log(err.responseJSON.message);
+            })
         }
     </script>
 </body>
