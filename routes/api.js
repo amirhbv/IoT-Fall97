@@ -4,6 +4,7 @@ var router = express.Router();
 var Group = require('../models/group');
 var Nodemcu = require('../models/nodemcu_data');
 var config = require('../utils/config');
+var bcrypt = require('bcrypt');
 
 router.get('/nodemcu', async function (req, res) {
     Nodemcu.find({ dataName: "temperature" }).exec(function (err, result) {
