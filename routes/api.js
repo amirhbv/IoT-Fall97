@@ -4,6 +4,7 @@ var router = express.Router();
 var Group = require('../models/group');
 var Nodemcu = require('../models/nodemcu_data');
 var config = require('../utils/config');
+var jwt = require("jsonwebtoken");
 var bcrypt = require('bcrypt');
 
 router.get('/nodemcu', async function (req, res) {
@@ -51,7 +52,7 @@ router.post('/signup', async function (req, res) {
     let thingspeak_id = req.body.thingspeak_id;
     let members = req.body.members;
     let hash_password = bcrypt.hashSync(req.body.password, config.saltRounds);
-    if (group_name && password) {
+    if (group_name && hash_password && thingspeak_id) {
         let newGroup = {
             group_name,
             hash_password,
