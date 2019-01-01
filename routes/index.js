@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-	if (req.user) {
-		res.render('panel/index.html', { username: user.username });
+	if (req.group) {
+		res.render('panel/index.html', { group_name: req.group.group_name });
 	}
 	else {
 		res.redirect('/login');
@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
-	if (!req.user) {
+	if (!req.group) {
 		res.render('login.html');
 	}
 	else {
@@ -21,7 +21,7 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/signup', function (req, res, next) {
-	if (!req.user) {
+	if (!req.group) {
 		res.render('signup.html');
 	}
 	else {

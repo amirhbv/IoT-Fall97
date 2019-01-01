@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var User = require('../models/user');
+var Group = require('../models/group');
 var Nodemcu = require('../models/nodemcu_data');
 var config = require('../utils/config');
 
@@ -27,10 +27,13 @@ router.post('/nodemcu', async function (req, res) {
 });
 
 router.post('/login', async function (req, res) {
-    let username = req.body.username;
-    let user = await User.findOne({ username: username });
-    if (user && user.comparePassword(req.body.password)) {
-        let payload = { username: user.username };
+    let group_name = req.body.group_name;
+    let group = await Group.findOne({ group_name });
+    if (group && group.comparePassword(req.body.password)) {
+        let payload = {
+            group_name: group.group_name,
+            thingspeak_id: group.thingspeak_id
+        };
         return res.json({
             token: jwt.sign(payload,
                             config.secret,
@@ -38,21 +41,25 @@ router.post('/login', async function (req, res) {
         });
     }
     else {
-        return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
+        return res.status(401).json({ message: 'Authentication failed. Invalid group or password.' });
     }
 });
 
 router.post('/signup', async function (req, res) {
-    let username = req.body.username;
+    let group_name = req.body.group_name;
+    let thingspeak_id = req.body.thingspeak_id;
+    let members = req.body.members;
     let hash_password = bcrypt.hashSync(req.body.password, config.saltRounds);
-    if (username && password) {
-        let newUser = {
-            username,
-            hash_password
+    if (group_name && password) {
+        let newGroup = {
+            group_name,
+            hash_password,
+            thingspeak_id,
+            members
         };
         try {
-            let user = await User.create(newUser);
-            console.log(user);
+            let group = await Group.create(newGroup);
+            console.log(group);
         } catch (err) {
             return res.status(500).send();
         }

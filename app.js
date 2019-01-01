@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jwt = require("jsonwebtoken");
+var config = require('./utils/config');
 
 const mongoose = require('./utils/mongo');
 
@@ -23,13 +24,13 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
 	if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-		jwt.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function (err, decode) {
-			if (err) req.user = undefined;
-			req.user = decode;
+		jwt.verify(req.headers.authorization.split(' ')[1], config.secret, function (err, decode) {
+			if (err) req.group = undefined;
+			else req.group = decode;
 			next();
 		});
 	} else {
-		req.user = undefined;
+		req.group = undefined;
 		next();
 	}
 });
