@@ -18,7 +18,7 @@
         </div>
         <form id="signup_form" onsubmit="return false;">
             <input type="text" placeholder="Group name" id="signup_group_name" required/>
-            <input type="text" placeholder="Thing speak" id="thingspeakID" required/>
+            <input type="text" placeholder="Thing speak" id="signup_thingspeak_id" required/>
             <input type="password" placeholder="Password" id="signup_pass" required/>
             <input type="button" placeholder="+" id="add_member"/>
             <input type="submit" value="Signup" onclick="signup();" />
@@ -31,27 +31,33 @@
         function signup() {
             var group_name = signup_group_name.value;
             var password = signup_pass.value;
-            var thingSpeakId = thingspeakID.value;
-            var members = ['a', 'b', 'c'];
-            if (!group_name || !password || !thingSpeakId || !members.length) {
-                // alert
+            var thingspeak_id = signup_thingspeak_id.value;
+            var members = ['a', 'b', 'c']; // todo
+            if (!group_name || !password || !thingspeak_id || !members.length) {
+                // alert input
                 return false;
             }
+            // loading on
             $.ajax({
                 method: 'POST',
                 url: '/api/signup',
                 data: {
                     group_name,
                     password,
-                    thingSpeakId,
+                    thingspeak_id,
                     members
                 }
             })
                 .done(function (Data) {
                     console.log(Data);
+                    // loading off
+                    // alert
+                    // redirect /
                 })
                 .fail(function (err) {
                     console.log(err.responseJSON.message);
+                    // loading off
+                    // alert server
                 })
         }
     </script>

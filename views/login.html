@@ -30,9 +30,10 @@
             var group_name = login_group_name.value;
             var password = login_pass.value;
             if(!group_name || !password) {
-                // alert
+                // alert input
                 return false;
             }
+            // loading on
             $.ajax({
                 method: 'POST',
                 url: '/api/login',
@@ -43,9 +44,13 @@
             })
             .done(function (Data) {
                 console.log(Data);
+                // loading off
+                // redirect /
             })
             .fail(function (err) {
                 console.log(err.responseJSON.message);
+                // loading off
+                // alert server error
             })
         }
     </script>
