@@ -1,18 +1,32 @@
 var express = require('express');
 var router = express.Router();
-var loginRequired = require('../middlewares/loginRequired');
 
 /* GET home page. */
-router.get('/', loginRequired.loginRequired, function (req, res, next) {
-  res.render('panel/index.html', { username: 'MohsenFayyaz'});
+router.get('/', function (req, res, next) {
+	if (req.user) {
+		res.render('panel/index.html', { username: user.username });
+	}
+	else {
+		res.redirect('/login');
+	}
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login.html');
+	if (!req.user) {
+		res.render('login.html');
+	}
+	else {
+		res.redirect('/');
+	}
 });
 
 router.get('/signup', function (req, res, next) {
-  res.render('signup.html');
+	if (!req.user) {
+		res.render('signup.html');
+	}
+	else {
+		res.redirect('/');
+	}
 });
 
 module.exports = router;
