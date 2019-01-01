@@ -15,18 +15,45 @@
             <img src="/static/images/bg.jpeg" style="width:150px" style="height:150px">
             <p>SIGNUP</p>
         </div>
-        <form id="login_form">
-            <input type="text" placeholder="Group name" required/>
-            <input type="text" placeholder="Thing speak" required/>
-            <input type="password" placeholder="Password" required/>
-            <input type="text" placeholder="new member"/>
-            <input type="button" placeholder="+"/>
-            <input type="submit" value="Signup" />
+        <form id="signup_form" onsubmit="return false;">
+            <input type="text" placeholder="Group name" id="signup_group_name" required/>
+            <input type="text" placeholder="Thing speak" id="thingspeakID" required/>
+            <input type="password" placeholder="Password" id="singup_pass" required/>>
+            <input type="button" placeholder="+" id="add_member"/>
+            <input type="submit" value="Signup" onclick="signup();" />
         </form>
         <div id="no_account">
             <p>Already have an Account?</p>
             <a href="/login">LOGIN!<HEADER></HEADER></a>
     </div>
+    <script>
+        function signup() {
+            var group_name = signup_group_name.value;
+            var password = signup_pass.value;
+            var thingSpeakId = thingspeakID.value;
+            var members = ['a', 'b', 'c'];
+            if (!group_name || !password || !thingSpeakId || !members.length) {
+                // alert
+                return false;
+            }
+            $.ajax({
+                method: 'POST',
+                url: '/api/signup',
+                data: {
+                    group_name,
+                    password,
+                    thingSpeakId,
+                    members
+                }
+            })
+                .done(function (Data) {
+                    console.log(Data);
+                })
+                .fail(function (err) {
+                    console.log(err.responseJSON.message);
+                })
+        }
+    </script>
 </body>
 </html>
 
