@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Handlee|Roboto|Shadows+Into+Light" rel="stylesheet">
     <link rel="stylesheet" href="/static/stylesheets/signup.css">
+    <script src="/static/lib/bootstrap/js/jquery.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
@@ -18,7 +19,7 @@
         <form id="signup_form" onsubmit="return false;">
             <input type="text" placeholder="Group name" id="signup_group_name" required/>
             <input type="text" placeholder="Thing speak" id="thingspeakID" required/>
-            <input type="password" placeholder="Password" id="singup_pass" required/>>
+            <input type="password" placeholder="Password" id="signup_pass" required/>
             <input type="button" placeholder="+" id="add_member"/>
             <input type="submit" value="Signup" onclick="signup();" />
         </form>
