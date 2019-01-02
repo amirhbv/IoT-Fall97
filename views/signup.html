@@ -11,15 +11,28 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
-    <div id="login_box">
-        <div id="login_instructions" >
+    <div id="signup_box">
+        <div id="signup_instructions" >
             <img src="/static/images/bg.jpeg" style="width:150px" style="height:150px">
             <p>SIGNUP</p>
         </div>
         <form id="signup_form" onsubmit="return false;">
-            <input type="text" placeholder="Group name" id="signup_group_name" required/>
-            <input type="text" placeholder="Thing speak" id="signup_thingspeak_id" required/>
-            <input type="password" placeholder="Password" id="signup_pass" required/>
+            <div class = "input_container">
+                <input type="text" placeholder="Group name" id="signup_group_name" required/>
+                <i class="fas fa-users"></i>
+            </div>
+            <div class = "input_container">
+                 <input type="text" placeholder="Thing speak" id="signup_thingspeak_id" required/>
+                <i class="fab fa-speakap"></i>
+            </div>
+            <div class = "input_container">
+                    <input type="password" placeholder="Password" id="signup_pass" required/>
+                    <i class="fas fa-key"></i>
+            </div>
+            <div class = "input_container">
+                    <input type="text" placeholder="member name" id="signup_group_name" required/>
+                    <i class="fas fa-user"></i>
+                </div>
             <input type="button" placeholder="+" id="add_member"/>
             <input type="submit" value="Signup" onclick="signup();" />
         </form>

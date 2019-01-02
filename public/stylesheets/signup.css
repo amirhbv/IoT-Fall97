@@ -12,7 +12,7 @@ body, html {
     background-size: cover;
     background-repeat: no-repeat;
 }
-#login_box {
+#signup_box {
     width: 380px;
     height: 600px;
     display: flex;
@@ -22,7 +22,7 @@ body, html {
     overflow: hidden;
     background-color: white;
 }
-#login_instructions {
+#signup_instructions {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -35,36 +35,52 @@ body, html {
     margin-top: 7%;
 }
 
-#login_form {
+#signup_form {
     width: 100%;
-    height: 45%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 3%;
 }
 
-#login_form input {
+.input_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input_container i {
+    position: absolute;
+    left: 30px;
+}
+
+#signup_form input {
     width: 70%;
     border-radius: 20px;
-    margin-bottom: 2%;
-    margin-top: 2%;
-    border-color: beige;
+    border: none;
+    border: 1px solid black;
+    border-color: gray;
 }
 
-#login_form input[type="button"]{
+#signup_form input[type="button"]{
     width : 5%;
     cursor: pointer;
     border-color: beige;
-    background-color: rgb(206, 190, 160);
+    background-color: rgb(182, 39, 39);
     margin-bottom: 5%;
 }
 
-#login_form input[type="submit"] {
-    background: rgb(221, 77, 10);
+#signup_form input[type="text"] , input[type="password"]{
+    padding-left: 50px;
+}
+
+#signup_form input[type="submit"] {
+   background: rgb(221, 77, 10);
     color: rgb(195, 229, 235);
     border-radius: 20px;
+    padding: none;
     cursor: pointer;
 }
 

@@ -44,21 +44,40 @@ body, html {
     align-items: center;
 }
 
+.input_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input_container i {
+    position: absolute;
+    left: 30px;
+}
+
 #login_form input {
     width: 70%;
     height: 35px;
     border-radius: 20px;
+    border: none;
+    border: 1px solid black;
     border-color: gray;
 }
 
-    input[type="submit"]{
+input[type="submit"]{
     cursor: pointer;
+}
+
+#login_form input[type="text"] , input[type="password"]{
+    padding-left: 50px;
 }
 
 #login_form input[type="submit"] {
     background: rgb(221, 77, 10);
     color: rgb(195, 229, 235);
     border-radius: 20px;
+    padding: none;
 }
 
 #no_account {
