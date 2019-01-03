@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
 		res.render('panel/index.html', {
 			group_name: req.group.group_name,
 			thingspeak_id: req.group.thingspeak_id
+			
 		});
 	}
 	else {
