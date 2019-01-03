@@ -23,8 +23,8 @@ app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
-	if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-		jwt.verify(req.headers.authorization.split(' ')[1], config.secret, function (err, decode) {
+	if (req.cookies && req.cookies.Authorization && req.cookies.Authorization.split(' ')[0] === 'JWT') {
+		jwt.verify(req.cookies.Authorization.split(' ')[1], config.secret, function (err, decode) {
 			if (err) req.group = undefined;
 			else req.group = decode;
 			next();
