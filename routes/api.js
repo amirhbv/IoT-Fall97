@@ -36,11 +36,10 @@ router.post('/login', async function (req, res) {
             group_name: group.group_name,
             thingspeak_id: group.thingspeak_id
         };
-        return res.json({
-            token: jwt.sign(payload,
-                            config.secret,
-                            { expiresIn: config.accessTokenExpireTime })
-        });
+        let token = jwt.sign(payload, config.secret,
+            { expiresIn: config.accessTokenExpireTime });
+        res.cookie('Authorization', `JWT ${token}`, { httpOnly: true });
+        return res.status(200).json({ message: 'Logged in.' });
     }
     else {
         return res.status(401).json({ message: 'Authentication failed. Invalid group or password.' });
@@ -50,7 +49,7 @@ router.post('/login', async function (req, res) {
 router.post('/signup', async function (req, res) {
     let group_name = req.body.group_name;
     let thingspeak_id = req.body.thingspeak_id;
-    let members = req.body.members;
+    let members = req.body['members[]'] || [];
     let hash_password = bcrypt.hashSync(req.body.password, config.saltRounds);
     if (group_name && hash_password && thingspeak_id) {
         let newGroup = {
@@ -60,9 +59,11 @@ router.post('/signup', async function (req, res) {
             members
         };
         try {
+            // console.log(newGroup);
             let group = await Group.create(newGroup);
             console.log(group);
         } catch (err) {
+            console.log(err);
             return res.status(500).send();
         }
         return res.status(200).send();
