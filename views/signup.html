@@ -29,10 +29,10 @@
                     <input type="password" placeholder="Password" id="signup_pass" required/>
                     <i class="fas fa-key"></i>
             </div>
-            <div class = "input_container">
-                    <input type="text" placeholder="member name" id="signup_group_name" required/>
-                    <i class="fas fa-user"></i>
-                </div>
+            <!-- <div class = "input_container">
+                <input type="text" placeholder="member name" id="signup_group_name" required/>
+                <i class="fas fa-user"></i>
+            </div> -->
             <input type="button" placeholder="+" id="add_member"/>
             <input type="submit" value="Signup" onclick="signup();" />
         </form>
@@ -68,7 +68,7 @@
                     // redirect /
                 })
                 .fail(function (err) {
-                    console.log(err.responseJSON.message);
+                    // console.log(err.responseJSON.message);
                     // loading off
                     // alert server
                 })
