@@ -34,4 +34,11 @@ router.get('/signup', function (req, res, next) {
 	}
 });
 
+router.get('/signout', function (req, res, next) {
+	if (req.group) {
+		res.cookie('Authorization', '');
+	}
+	res.redirect('/login');
+});
+
 module.exports = router;
