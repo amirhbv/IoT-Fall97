@@ -7,8 +7,8 @@ router.get('/', function (req, res, next) {
 		console.log(req.group);
 		res.render('panel/index.html', {
 			group_name: req.group.group_name,
-			thingspeak_id: req.group.thingspeak_id
-			
+			thingspeak_id: req.group.thingspeak_id,
+			members: "ali - hassan - reza - hooman!"
 		});
 	}
 	else {
