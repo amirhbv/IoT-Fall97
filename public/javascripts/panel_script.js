@@ -244,7 +244,7 @@ $(function () {
 			b: 65
 		},];
 
-	setInterval(function () { initializeCharts(); }, 4000);
+	setInterval(function () { initializeCharts(); }, 10000); //10 sec
 	function initializeCharts() {
 		$(".rad-chart").empty();
 		$(".d3-*").empty();

@@ -31,7 +31,7 @@
 								 alt="me" /></a>
 							<ul class="rad-dropmenu-item sm-menu">
 								<li class="rad-notification-item">
-									<a class="rad-notification-content lg-text" href="#"><i class="fa fa-edit"></i> My Profile</a>
+									<a class="rad-notification-content lg-text pointer" onClick="scrollToID('group_info')"><i class="fa fa-edit"></i> Group Profile</a>
 								</li>
 								<li class="rad-notification-item">
 									<a class="rad-notification-content lg-text" href="#"><i class="fa fa-power-off"></i> Sign out</a>
@@ -172,27 +172,37 @@
 		<nav class="rad-sidebar rad-nav-min">
 			<ul>
 				<li>
-					<a href="#" class="inbox">
+					<a class="inbox pointer" onClick="scrollToID('dashboard_header')">
 						<i class="fa fa-dashboard"><span class="icon-bg rad-bg-success"></span></i>
 						<span class="rad-sidebar-item">Dashboard</span>
 					</a>
 				</li>
 				<li>
-					<a href="#">
-						<i class="fa fa-bar-chart-o">
+					<a class="inbox pointer" onClick="scrollToID('developers_info')">
+						<i class="fa fa-desktop">
 							<span class="icon-bg rad-bg-danger"></span>
 						</i>
-						<span class="rad-sidebar-item">Ticket status</span>
+						<span class="rad-sidebar-item">Developers Info</span>
 					</a>
 				</li>
-				<li><a href="#" class="snooz"><i class="fa fa-line-chart"><span class="icon-bg rad-bg-primary"></span></i><span
-						 class="rad-sidebar-item">Call trends</span></a></li>
-				<li><a href="#" class="done"><i class="fa fa-area-chart"><span class="icon-bg rad-bg-warning"></span></i><span
-						 class="rad-sidebar-item">Heat maps</span></a></li>
 				<li>
-					<a href="#">
-						<i class="fa fa-wrench"><span class="icon-bg rad-bg-violet"></span></i>
-						<span class="rad-sidebar-item">Settings</span>
+					<a class="snooz pointer" onClick="scrollToID('thingspeak_charts')"><i class="fa fa-bar-chart-o">
+							<span class="icon-bg rad-bg-primary"></span>
+						</i><span class="rad-sidebar-item">ThingSpeak Charts</span>
+					</a>
+				</li>
+				<li><a class="done pointer" onClick="scrollToID('builtin_chart')"><i class="fa fa-line-chart"><span class="icon-bg rad-bg-warning"></span></i><span
+						 class="rad-sidebar-item">Built-in Chart</span></a></li>
+				<li>
+					<a class="inbox pointer" onClick="scrollToID('group_info')">
+						<i class="fa fa-users"><span class="icon-bg rad-bg-violet"></span></i>
+						<span class="rad-sidebar-item">Group Info</span>
+					</a>
+				</li>
+				<li>
+					<a class="inbox pointer" onClick="scrollToID('iot_intro')">
+						<i class="fa fa-info"><span class="icon-bg rad-bg-primary"></span></i>
+						<span class="rad-sidebar-item">IOT Intro</span>
 					</a>
 				</li>
 			</ul>
@@ -202,13 +212,13 @@
 		<section>
 			<div class="rad-body-wrapper rad-nav-min">
 				<div class="container-fluid">
-					<header class="rad-page-title">
+					<header class="rad-page-title" id="dashboard_header">
 						<span>Dashboard</span>
 						<small class="md-txt">Welcome
 							<%= group_name %>, <a href="https://goo.gl/maps/EGvrbseCYsr" target="_blank"><i class="fa fa-map-marker rad-txt-danger"></i>
 								Tehran</a></small>
 					</header>
-					<div class="row">
+					<div class="row" id="developers_info">
 						<div class="col-lg-4 col-xs-12">
 							<div class="rad-info-box rad-txt-success">
 								<i class="fa fa-home"></i>
@@ -260,7 +270,7 @@
 							</div>
 						</div>
 						-->
-					<div class="row">
+					<div class="row" id="thingspeak_charts">
 						<div class="col-lg-12 col-md-12 col-xs-12">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -290,7 +300,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" id="builtin_chart">
 
 						<div class="col-lg-12 col-md-12 col-xs-12">
 							<div class="panel panel-default">
@@ -344,7 +354,7 @@
 								</div>
 							</div>
 							-->
-						<div class="col-lg-12 col-md-12 col-xs-12">
+						<div class="col-lg-12 col-md-12 col-xs-12" id="group_info">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title">GROUP INFO<ul class="rad-panel-action">
@@ -382,14 +392,14 @@
 													</div>
 												</div>
 											</div>
-											
+
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-lg-12 col-md-12 col-xs-12">
+						<div class="col-lg-12 col-md-12 col-xs-12" id="iot_intro">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title">What we learned<ul class="rad-panel-action">
@@ -661,12 +671,25 @@
 
 <script>
 	$.ajax({
-		url: "https://api.thingspeak.com/channels/666003/fields/1.json?results=2",
+		url: "http://mohsenfayyaz.ir/extra/IOT/counter.php",
 		type: 'GET',
 		dataType: 'json', // added data type
-		success: function (res) {
-			console.log(res);
-			alert(res);
+		success: function (counterRes) {
+			console.log(counterRes);
+			$.ajax({
+				url: "https://api.thingspeak.com/update?api_key=OVVEQRVRLYRI38QP&field4=" + counterRes,
+				type: 'GET',
+				dataType: 'json', // added data type
+				success: function (res) {
+					console.log(res);
+				}
+			});
 		}
 	});
+
+	function scrollToID(id) {
+		$([document.documentElement, document.body]).animate({
+			scrollTop: $("#" + id).offset().top - 85
+		}, 500);
+	}
 </script>

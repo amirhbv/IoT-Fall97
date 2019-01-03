@@ -91,7 +91,7 @@
             .done(function (Data) {
                 console.log(Data);
                 loadingEnd();
-                alertify.success(Data);
+                alertify.success("You are logged in");
                 window.location.replace("/");
             })
             .fail(function (err) {
