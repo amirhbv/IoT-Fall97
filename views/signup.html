@@ -1,57 +1,93 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Signup</title>
     <link rel="shortcut icon" href="/static/images/favicon.ico" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Handlee|Roboto|Shadows+Into+Light" rel="stylesheet">
     <link rel="stylesheet" href="/static/stylesheets/signup.css">
     <script src="/static/lib/bootstrap/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/static/stylesheets/loader.css">
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.min.css" />
+
+    <!-- 
+    RTL version
+-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.rtl.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.rtl.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/semantic.rtl.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.rtl.min.css" />
+
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<div id="loader"></div>
 <body>
     <div id="signup_box">
-        <div id="signup_instructions" >
+        <div id="signup_instructions">
             <img src="/static/images/bg.jpeg" style="width:150px" style="height:150px">
             <p>SIGNUP</p>
         </div>
         <form id="signup_form" onsubmit="return false;">
-            <div class = "input_container">
-                <input type="text" placeholder="Group name" id="signup_group_name" required/>
+            <div class="input_container">
+                <input type="text" placeholder="Group name" id="signup_group_name" required />
                 <i class="fas fa-users"></i>
             </div>
-            <div class = "input_container">
-                 <input type="text" placeholder="Thing speak" id="signup_thingspeak_id" required/>
+            <div class="input_container">
+                <input type="text" placeholder="Thing speak" id="signup_thingspeak_id" required />
                 <i class="fab fa-speakap"></i>
             </div>
-            <div class = "input_container">
-                    <input type="password" placeholder="Password" id="signup_pass" required/>
-                    <i class="fas fa-key"></i>
+            <div class="input_container">
+                <input type="password" placeholder="Password" id="signup_pass" required />
+                <i class="fas fa-key"></i>
             </div>
             <!-- <div class = "input_container">
                 <input type="text" placeholder="member name" id="signup_group_name" required/>
                 <i class="fas fa-user"></i>
             </div> -->
-            <input type="button" placeholder="+" id="add_member"/>
+            <input type="button" placeholder="+" id="add_member" />
             <input type="submit" value="Signup" onclick="signup();" />
         </form>
         <div id="no_account">
             <p>Already have an Account?</p>
             <a href="/login">LOGIN!<HEADER></HEADER></a>
-    </div>
-    <script>
-        function signup() {
-            var group_name = signup_group_name.value;
-            var password = signup_pass.value;
-            var thingspeak_id = signup_thingspeak_id.value;
-            var members = ['a', 'b', 'c']; // todo
-            if (!group_name || !password || !thingspeak_id || !members.length) {
-                // alert input
-                return false;
-            }
-            // loading on
-            $.ajax({
+        </div>
+</body>
+
+</html>
+
+
+<script>
+    document.getElementById("loader").style.display = "none";
+    function signup() {
+        var group_name = signup_group_name.value;
+        var password = signup_pass.value;
+        var thingspeak_id = signup_thingspeak_id.value;
+        var members = ['a', 'b', 'c']; // todo
+        if (!group_name || !password || !thingspeak_id || !members.length) {
+            // alert input
+            alertify.error("Please fill the form");
+            return false;
+        }
+        // loading on
+        loadingStart();
+        $.ajax({
                 method: 'POST',
                 url: '/api/signup',
                 data: {
@@ -61,19 +97,31 @@
                     members
                 }
             })
-                .done(function (Data) {
-                    console.log(Data);
-                    // loading off
-                    // alert
-                    // redirect /
-                })
-                .fail(function (err) {
-                    // console.log(err.responseJSON.message);
-                    // loading off
-                    // alert server
-                })
-        }
-    </script>
-</body>
-</html>
+            .done(function (Data) {
+                console.log(Data);
+                // loading off
+                // alert
+                // redirect /
+                loadingEnd();
+                alertify.success("Signup Completed");
+                setTimeout(function(){ window.location.replace("/"); }, 1000);
+                
+            })
+            .fail(function (err) {
+                // console.log(err.responseJSON.message);
+                // loading off
+                // alert server
+                loadingEnd();
+                alertify.error("Username exists");
+            })
+    }
 
+    function loadingStart(){
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("signup_box").style.filter = "blur(5px)";
+    }
+    function loadingEnd(){
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("signup_box").style.filter = "blur(0px)";
+    }
+</script>
