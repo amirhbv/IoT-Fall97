@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+	res.render('panel/index.html');
 	if (req.group) {
 		console.log(req.group);
 		res.render('panel/index.html', {
@@ -17,6 +18,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
+	res.render('login.html');
 	if (!req.group) {
 		res.render('login.html');
 	}
@@ -26,6 +28,7 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/signup', function (req, res, next) {
+	res.render('signup.html');
 	if (!req.group) {
 		res.render('signup.html');
 	}
