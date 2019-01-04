@@ -34,7 +34,8 @@ router.post('/login', async function (req, res) {
     if (group && group.comparePassword(req.body.password)) {
         let payload = {
             group_name: group.group_name,
-            thingspeak_id: group.thingspeak_id
+            thingspeak_id: group.thingspeak_id,
+            members: group.members
         };
         let token = jwt.sign(payload, config.secret,
             { expiresIn: config.accessTokenExpireTime });

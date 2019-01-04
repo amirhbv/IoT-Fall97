@@ -24,7 +24,7 @@
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.min.css" />
 
-    <!-- 
+    <!--
     RTL version
 -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.rtl.min.css" />
@@ -57,11 +57,7 @@
                 <input type="password" placeholder="Password" id="signup_pass" required />
                 <i class="fas fa-key"></i>
             </div>
-            <!-- <div class = "input_container">
-                <input type="text" placeholder="member name" id="signup_group_name" required/>
-                <i class="fas fa-user"></i>
-            </div> -->
-            <input type="button" placeholder="+" id="add_member" />
+            <button id="add_member">Add Member</button>
             <input type="submit" value="Signup" onclick="signup();" />
         </form>
         <div id="no_account">
@@ -79,7 +75,11 @@
         var group_name = signup_group_name.value;
         var password = signup_pass.value;
         var thingspeak_id = signup_thingspeak_id.value;
-        var members = ['a', 'b', 'c']; // todo
+        var members = [];
+        for(var i = 0; i < (membersCount < 5 ? membersCount : 4); i++) {
+            members.push($(`#group_member_${i + 1}`).val())
+        }
+        // var members = ['a', 'b', 'c']; // todo
         if (!group_name || !password || !thingspeak_id || !members.length) {
             // alert input
             alertify.error("Please fill the form");
@@ -105,7 +105,7 @@
                 loadingEnd();
                 alertify.success("Signup Completed");
                 setTimeout(function(){ window.location.replace("/"); }, 1000);
-                
+
             })
             .fail(function (err) {
                 // console.log(err.responseJSON.message);
@@ -124,4 +124,24 @@
         document.getElementById("loader").style.display = "none";
         document.getElementById("signup_box").style.filter = "blur(0px)";
     }
+
+    var membersCount = 0;
+    $(document).on('click', '#add_member', function () {
+        if(membersCount > 3) {
+            return;
+        }
+        membersCount++;
+        var newDiv = document.createElement('div');
+        newDiv.className = 'input_container';
+        var newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.placeholder = `Member ${membersCount}`;
+        newInput.required = true;
+        newInput.id = `group_member_${membersCount}`;
+        newDiv.append(newInput);
+        var newI = document.createElement('i');
+        newI.className = 'fas fa-user';
+        newDiv.append(newI);
+        signup_form.insertBefore(newDiv, document.querySelector('input[type="submit"]'));
+    });
 </script>
